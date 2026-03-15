@@ -4,6 +4,7 @@ use rocket::serde::json::to_string;
 use rocket::tokio;
 use bambangshop::REQWEST_CLIENT;
 use crate::model::notification::Notification;
+use crate::repository::subscriber::SubscriberRepository;
 
 #[derive(Debug, Clone, Deserialize, Serialize)]
 #[serde(crate = "rocket::serde")]
