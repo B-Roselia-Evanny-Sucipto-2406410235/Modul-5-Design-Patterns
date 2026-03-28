@@ -77,6 +77,11 @@ This is the place for you to write reflections:
 ### Mandatory (Publisher) Reflections
 
 #### Reflection Publisher-1
+1. Dalam kasus ini, sebuah single Model struct sudah cukup karena subscriber diperlakukan sebagai entitas data yang seragam (memiliki `url` dan `name`). Trait belum dibutuhkan karena belum ada kebutuhan untuk memiliki berbagai jenis subscriber dengan cara update yang berbeda-beda. Trait akan dibutuhkan nanti apabila ingin menggunakan berbagai cara notifikasi. Sehingga, sebuah single struct Subscriber sudah cukup.
+
+2. Karena `id` dan `url` harus unik, maka program sering melakukan pencarian untuk mengambil data spesifik. Jika menggunakan `Vec`, untuk mencari data tertentu, program harus melakukan iterasi dari awal sampai akhir (O(n)), sehingga semakin banyak subscriber, semakin lambat proses pencariannya. Jika menggunakan `DashMap`, pencarian, penyisipan, dan penghapusan dilakukan dalam waktu konstan (O(1)). Karena `id` dan `url` unik, maka sistem dapat langsung mengakses subscriber tertentu tanpa perlu mengiterasi seluruh isi list. `DashMap` lebih efisien dan diperlukan di kasus ini.
+
+3. Singleton memastikan hanya ada satu instance di program, tetapi tidak menjamin thread safety. Sedangkan DashMap memastikan thread safety untuk mengelola akses konkuren ke data tersebut. `DashMap` tetap dibutuhkan di program ini untuk memastikan thread safety.
 
 #### Reflection Publisher-2
 
