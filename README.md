@@ -84,5 +84,10 @@ This is the place for you to write reflections:
 3. Singleton memastikan hanya ada satu instance di program, tetapi tidak menjamin thread safety. Sedangkan DashMap memastikan thread safety untuk mengelola akses konkuren ke data tersebut. `DashMap` tetap dibutuhkan di program ini untuk memastikan thread safety.
 
 #### Reflection Publisher-2
+1. Pemisahan service dan repository dari model dilakukan untuk menerapkan Single Reponsibility Principle. Jika kita menggabungkan semuanya ke dalam Model, maka Model tersebut akan menjadi bloated karena memiliki terlalu banyak tanggung jawab. Repository hanya focus pada data access dan berhubungan dengan database, Service focus pada logika bisnis, dan Model focus pada mendefinisikan struktur data. Dengan memisahkan Service dan Repository, kode menjadi lebih mudah dimaintain, dan memodifikasi kode menjadi lebih mudah apabila ingin mengubah logika bisnis atau mengubah database. Selain itu, pemisahan ini membuat unit testing jauh lebih mudah.
+
+2. Jika kita memaksakan semua logika hanya di dalam Model (tanpa pemisahan service dan repository), maka model Program harus tahu cara menyimpan dirinya sendiri, mencari Subscriber, dan membuat Notification. Setiap file model akan penuh dengan `use` dari model lain. Jika seandainya kita mengubah struktur Notification, maka mungkin kita perlu mengubah kode di dalam Program dan Subscriber juga. Lalu, file bisa berisi menjadi ratusan baris kode yang mencampuradukkan tugas. Kode menjadi sangat sulit dipisahkan (tightly coupled). Perubahan kecil pada skema database akan memaksa kita menulis ulang logika bisnis di seluruh file Model, dan menyebabkan sulit di-testing dan rentan terhadap bug.
+
+3. Dengan Postman, kita bisa langsung menguji API yang dibuat apakah benar-benar menyimpan data tanpa harus membuat halaman UI terlebih dahulu. Fitur yang cukup menarik adalah environment & variables, kita bisa menyimpan URL server sebagai variabel. Lalu, fitur collections & sharing juga sangat berguna untuk proyek kelompok karena kita bisa mengekspor semua request API ke dalam satu file dan membagikannya ke kelompok.
 
 #### Reflection Publisher-3
